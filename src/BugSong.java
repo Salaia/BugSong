@@ -1,26 +1,31 @@
+import static java.lang.Thread.sleep;
+
 public class BugSong {
-    public static void main(String[] args) {
-        int beerNum = 99;
+
+    boolean isSinging;
+    public void sing() throws Exception {
+        //int bugNum = 99;
         String word = "bugs";
+        isSinging = true;
 
-        while (beerNum > 0) {
+        while (BugLauncher.bugCounter.getBugCount() > 0 && isSinging) {
 
-            if (beerNum == 1) {
+            if (BugLauncher.bugCounter.getBugCount() == 1) {
                 word = "bug";
             }
 
-            if (beerNum > 0) {
-                System.out.println(beerNum + " little " + word + " in my code.");
-                System.out.println(beerNum + " " + word + " left in the code.");
-                System.out.println("Take one down.");
-                System.out.println("Make a debug.");
-                beerNum = beerNum -1;
-            }
-        }
-        // Изначально оно внутри while - но у нас while не выполняется при требуемом значении beerNum
-        if (beerNum == 0) {
-            System.out.println("No bugs left in my code.");
-            System.out.println("Now I'm asked to code another feature...");
-        }
-    }
-}
+            if (BugLauncher.bugCounter.getBugCount() > 0) {
+                BugLauncher.bugGUI.songField.append(BugLauncher.bugCounter.getBugCount() + " little " + word + " in my code.\n");
+                BugLauncher.bugGUI.songField.append(BugLauncher.bugCounter.getBugCount() + " " + word + " left in the code.\n");
+                BugLauncher.bugGUI.songField.append("Take one down.\n");
+                BugLauncher.bugGUI.songField.append("Make a debug.\n");
+                sleep(1000);
+                BugLauncher.bugCounter.setBugCount(BugLauncher.bugCounter.getBugCount() -1);
+            } // if bugs > 0
+        } // while bugs > 0
+        if (BugLauncher.bugCounter.getBugCount() == 0) {
+            BugLauncher.bugGUI.songField.append("No bugs left in my code.\n");
+            BugLauncher.bugGUI.songField.append("Now I'm asked to code another feature...\n");
+        } // if 0 bugs
+    }// sing
+} // BugSong
