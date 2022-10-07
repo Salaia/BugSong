@@ -27,7 +27,12 @@ public class BugGUI {
         JButton stop = new JButton("Stop singing");
         stop.addActionListener(new MyStopListener());
         buttonBox.add(stop);
+        /* Если есть стоп, должен быть и start again - вот только он вешает GUI
+        JButton start = new JButton("Start again");
+        start.addActionListener(new MyStartListener());
+        buttonBox.add(start); */
 
+        // Разместить блоки внутри главного окна
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         frame.getContentPane().add(BorderLayout.SOUTH, buttonBox);
 
@@ -38,9 +43,20 @@ public class BugGUI {
     } // buildGUI
 
 
+    // Для кнопки Stop
     public class MyStopListener implements ActionListener {
         public void actionPerformed(ActionEvent a) {
-            BugLauncher.bugSong.isSinging = false;
+            BugLauncher.bugSong.isSinging = false; // Прекращает петь
+            System.out.println("Stop button pressed");
         }
-    }
+    } // MyStopListener
+
+    /* Для кнопки Start again, мне не покорилось, оно вешает GUI, и я не знаю, как это вылечить
+    public class MyStartListener implements ActionListener {
+        public void actionPerformed(ActionEvent a) {
+            System.out.println("Start button pressed1");
+            BugLauncher.launcher.startSinging(); // Начинает петь по новой
+            System.out.println("Start button pressed2");
+        }
+    } // MyStartListener */
 } // BugGUI
